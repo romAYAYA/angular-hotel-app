@@ -1,0 +1,10 @@
+<h1>Welcome to {{ hotelName }}!</h1>
+
+<div [hidden]="hideRooms">
+  Number of Rooms:
+  <div [innerText]="numberOfRooms"></div>
+  <!-- [] - box syntax -->
+</div>
+
+<button (click)="toggle()">Toggle</button>
+<!-- () - banana syntax -->
