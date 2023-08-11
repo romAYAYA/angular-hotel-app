@@ -20,6 +20,8 @@ export class RoomsComponent implements OnInit {
     bookedRooms: 5,
   };
 
+  title = 'Room List';
+
   roomList: RoomList[] = [];
 
   constructor() {}
@@ -64,11 +66,28 @@ export class RoomsComponent implements OnInit {
 
   toggle() {
     this.hideRooms = !this.hideRooms;
+    this.title = 'Rooms List'
   }
 
-  selectedRoom!: RoomList
+  selectedRoom!: RoomList;
 
   selectRoom(room: RoomList) {
-    this.selectedRoom = room
+    this.selectedRoom = room;
+  }
+
+  addRoom() {
+    const room: RoomList = {
+      roomNumber: 4,
+      roomType: 'Deluxe Room',
+      amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathrooom, Kitchen',
+      price: 9843,
+      photos:
+        'https://images.unsplash.com/photo-1690702691836-c5409092ad01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+      checkInTime: new Date('11-Nov-2023'),
+      checkOutTime: new Date('12-Nov-2023'),
+      rating: 4.432,
+    };
+
+    this.roomList = [...this.roomList, room];
   }
 }
