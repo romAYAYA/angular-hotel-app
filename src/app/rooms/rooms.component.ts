@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  AfterViewChecked,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
+import { HeaderComponent } from '../header/header.component';
 
 import { Room, RoomList } from './rooms';
 
@@ -7,7 +17,9 @@ import { Room, RoomList } from './rooms';
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.scss'],
 })
-export class RoomsComponent implements OnInit {
+export class RoomsComponent
+  implements OnInit, DoCheck, AfterViewInit, AfterViewChecked
+{
   hotelName = 'Hilton Hotel';
 
   numberOfRooms = 10;
@@ -24,14 +36,22 @@ export class RoomsComponent implements OnInit {
 
   roomList: RoomList[] = [];
 
+  @ViewChild(HeaderComponent)
+  headerComponent!: HeaderComponent;
+
+  @ViewChildren(HeaderComponent)
+  headerChildrenComponent!: QueryList<HeaderComponent>;
+
   constructor() {}
 
   ngOnInit(): void {
+    // console.log(this.headerComponent);
+
     this.roomList = [
       {
         roomNumber: 1,
         roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathrooom, Kitchen',
+        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
         price: 500,
         photos:
           'https://images.unsplash.com/photo-1690702691836-c5409092ad01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
@@ -42,7 +62,7 @@ export class RoomsComponent implements OnInit {
       {
         roomNumber: 2,
         roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathrooom, Kitchen',
+        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
         price: 1000,
         photos:
           'https://images.unsplash.com/photo-1690702691836-c5409092ad01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
@@ -53,7 +73,7 @@ export class RoomsComponent implements OnInit {
       {
         roomNumber: 3,
         roomType: 'Private Suite',
-        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathrooom, Kitchen',
+        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
         price: 15000,
         photos:
           'https://images.unsplash.com/photo-1690702691836-c5409092ad01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
@@ -64,9 +84,21 @@ export class RoomsComponent implements OnInit {
     ];
   }
 
+  ngDoCheck(): void {
+    console.log('On changes is called');
+  }
+
+  ngAfterViewInit(): void {
+    this.headerComponent.title = 'Rooms View';
+
+    this.headerChildrenComponent.last.title = 'Last Title';
+  }
+
+  ngAfterViewChecked(): void {}
+
   toggle() {
     this.hideRooms = !this.hideRooms;
-    this.title = 'Rooms List'
+    this.title = 'Rooms List';
   }
 
   selectedRoom!: RoomList;

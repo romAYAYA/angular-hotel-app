@@ -1,4 +1,12 @@
-import { Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { RoomsComponent } from './rooms/rooms.component';
 
 @Component({
   selector: 'hinv-root',
@@ -10,8 +18,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   // styles: [`h1 {color: red;}`] // its possible to write inline css too, but not recommended
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'hotelinventoryapp';
 
-  role = 'User';
+  @ViewChild('name', { static: true }) name!: ElementRef;
+
+  ngOnInit() {
+    this.name.nativeElement.innerText = 'Hilton Hotel';
+  }
+
+  // @ViewChild('user', { read: ViewContainerRef }) vcr!: ViewContainerRef;
+
+  // ngAfterViewInit() {
+  //   const componentRef = this.vcr.createComponent(RoomsComponent);
+  //   componentRef.instance.numberOfRooms = 50
+  // }
 }
